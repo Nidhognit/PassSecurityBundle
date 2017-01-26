@@ -1,0 +1,10 @@
+services:
+    pass_security.manager:
+        class: Nidhognit\PassSecurityBundle\DependencyInjection\Services\PassSecurity
+        arguments: ["@service_container","%pass_security%"]
+    pass_security.file_reader:
+        class: Nidhognit\PassSecurityBundle\DependencyInjection\Services\FileReader
+        arguments: ["%pass_security%"]
+    pass_security.base_reader:
+        class: Nidhognit\PassSecurityBundle\DependencyInjection\Services\DataBaseReader
+        arguments: ["@doctrine.orm.entity_manager","%pass_security%"]
