@@ -35,7 +35,7 @@ class FileReader implements InterfaceReader
         return $this->number;
     }
 
-    protected function openFile()
+    public function openFile()
     {
         $this->file = fopen($this->fileName, "r");
     }
@@ -58,7 +58,7 @@ class FileReader implements InterfaceReader
 
     }
 
-    protected function closeFile()
+    public function closeFile()
     {
         fclose($this->file);
     }
@@ -75,4 +75,11 @@ class FileReader implements InterfaceReader
         throw new \InvalidArgumentException('File in variable "file" must be with "txt" extension');
     }
 
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
 }
