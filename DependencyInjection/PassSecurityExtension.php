@@ -2,6 +2,8 @@
 
 namespace Nidhognit\PassSecurityBundle\DependencyInjection;
 
+use Nidhognit\PassSecurityBundle\DependencyInjection\Services\FileReader;
+use Nidhognit\PassSecurityBundle\DependencyInjection\Services\PassSecurity;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -21,10 +23,54 @@ class PassSecurityExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-        $container->setParameter('pass_security', $config);
 
+        switch ($config['type']) {
+            case PassSecurity::TYPE_FILE:
+                $this->prepareFileConfig($config);
+                break;
+            case PassSecurity::TYPE_BASE:
+                $this->prepareFileConfig($config);
+                break;
+            case PassSecurity::TYPE_CUSTOM:
+                $this->prepareCustomConfig($config);
+                break;
+            default:
+                throw new \InvalidArgumentException('Option "type" must be: ' . PassSecurity::TYPE_FILE . ', ' . PassSecurity::TYPE_BASE . ' or ' . PassSecurity::TYPE_CUSTOM . '. You use ' . $config['type']);
+        }
+
+        $container->setParameter('pass_security', $config);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
+    }
+
+    protected function prepareFileConfig(array &$configs)
+    {
+        $file = $configs['file'];
+
+        if ($file === FileReader::FILE_100k || $file === FileReader::FILE_1M) {
+            $file = realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'DataFiles' . DIRECTORY_SEPARATOR . $file . '.txt';
+            $configs['file'] = $file;
+        }
+
+        if (!file_exists($file)) {
+            throw new \InvalidArgumentException('File not found');
+        }
+
+        if (pathinfo($file, PATHINFO_EXTENSION) !== 'txt') {
+            throw new \InvalidArgumentException('File in variable "file" must be with "txt" extension');
+        }
+    }
+
+    protected function prepareBaseConfig(array $configs)
+    {
+
+    }
+
+    protected function prepareCustomConfig(array $configs)
+    {
+        if (!isset($configs['custom_service'])) {
+            throw new \InvalidArgumentException('You must specify "custom_service" in parameters');
+        }
     }
 }

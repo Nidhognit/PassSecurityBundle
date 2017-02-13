@@ -5,11 +5,32 @@ The PassSecurityBundle help you or your users check your passwords
 
 #How to use
 
-...
+In below example, we imagine, that you want check passwords for user before they submit form
+
+    ...
+    /**
+     * @Route("/ajax_password_check")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function ajaxPasswordCheckAction(Request $request)
+    {
+        $password = $request->get('password');  //password from user
+        $limit = null;  // if you want, you can limit password search (type of this variable must bu integer)
+        $passManager = $this->get('pass_security.manager');
+        $number = $passManager->getNumberOrNull($password, $limit);
+
+        return new JsonResponse(['number' => $number]);
+    }
+    ...
+
+In this case you must use HTTPS, if you use HTTP - it is very dangerous because of the possibility of [MITM](https://en.wikipedia.org/wiki/Man-in-the-middle_attack)
+
 You also can use console command
 
 `bin/console passbundle:check 123456`
 
+Where `123456` - your custom password
 
 #Documentation
 Default configuration:
@@ -32,6 +53,16 @@ Where:
 * `path` - is absolute path;
 * Each new password in the file begins on a new line;
 
+Default bundle have some pass files:
+* `Pass100k` (selected by default) - list of 100 000 offen used passwords
+* `Pass1M` - list of 1 000 000 offen used passwords
+
+Example (select file with 1 000 000 passwords):
+ 
+    pass_security:
+            type: "file"
+            file: Pass1M
+            
 #Type "base"
 
 #Type "custom"
@@ -39,7 +70,7 @@ You can also create your own service, for check passwords.
 
     pass_security:
             type: "custom"
-            custom_service: "acme_bundle.ny_service"
+            custom_service: "acme_bundle.my_service"
 
 Requirements:
 * Service must implement the interface `InterfaceReader`;

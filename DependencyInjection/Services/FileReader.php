@@ -4,6 +4,9 @@ namespace Nidhognit\PassSecurityBundle\DependencyInjection\Services;
 
 class FileReader implements InterfaceReader
 {
+    const FILE_100k = 'Pass100k';
+    const FILE_1M ='Pass1M';
+
     /** @var string */
     protected $fileName;
 
@@ -18,7 +21,6 @@ class FileReader implements InterfaceReader
     public function __construct($options = [])
     {
         $this->fileName = $options['file'];
-        $this->readOptions($options);
     }
 
     /**
@@ -61,18 +63,6 @@ class FileReader implements InterfaceReader
     public function closeFile()
     {
         fclose($this->file);
-    }
-
-    private function readOptions(&$options)
-    {
-        if (file_exists($options['file'])) {
-            if (pathinfo($options['file'], PATHINFO_EXTENSION) === 'txt') {
-                $this->fileName = $options['file'];
-                return true;
-            }
-        }
-
-        throw new \InvalidArgumentException('File in variable "file" must be with "txt" extension');
     }
 
     /**

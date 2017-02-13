@@ -23,18 +23,14 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-
             ->scalarNode('type')
             ->defaultValue(PassSecurity::TYPE_FILE)
             ->end()
-
             ->scalarNode('file')
-            ->defaultValue(realpath(dirname(__FILE__)). DIRECTORY_SEPARATOR. '..'  . DIRECTORY_SEPARATOR .'DataFiles' . DIRECTORY_SEPARATOR . 'Pass100k.txt')
+            ->defaultValue('Pass100k')
             ->end()
-
             ->scalarNode('custom_service')
             ->end()
-
             ->end();
 
         return $treeBuilder;

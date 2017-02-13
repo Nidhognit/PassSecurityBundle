@@ -38,11 +38,6 @@ class PassSecurity
         return $this->reader->findByPassword($password, $limit);
     }
 
-    public function getResult($password, $limit = null)
-    {
-
-    }
-
     /**
      * @param array $options
      */
@@ -56,13 +51,9 @@ class PassSecurity
                 $this->reader = $this->container->get('pass_security.base_reader');
                 break;
             case self::TYPE_CUSTOM:
-                if (isset($options['custom_service'])) {
-                    $this->reader = $this->container->get($options['custom_service']);
-                    if (!$this->reader instanceof InterfaceReader) {
-                        throw new \InvalidArgumentException('Service ' . $options['custom_service'] . ' must be implements InterfaceReader');
-                    }
-                } else {
-                    throw new \InvalidArgumentException('You must specify "custom_service" in parameters');
+                $this->reader = $this->container->get($options['custom_service']);
+                if (!$this->reader instanceof InterfaceReader) {
+                    throw new \InvalidArgumentException('Service ' . $options['custom_service'] . ' must be implements InterfaceReader');
                 }
                 break;
             default:
