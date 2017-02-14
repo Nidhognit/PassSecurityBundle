@@ -3,6 +3,7 @@
 namespace Nidhognit\PassSecurityBundle\DependencyInjection;
 
 use Nidhognit\PassSecurityBundle\DependencyInjection\Services\PassSecurity;
+use Nidhognit\PassSecurityBundle\Entity\PassSecurityBase;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -28,6 +29,12 @@ class Configuration implements ConfigurationInterface
             ->end()
             ->scalarNode('file')
             ->defaultValue('Pass100k')
+            ->end()
+            ->scalarNode('class')
+            ->defaultValue(PassSecurityBase::class)
+            ->end()
+            ->scalarNode('repository')
+            ->defaultValue('PassSecurityBundle:PassSecurityBase')
             ->end()
             ->scalarNode('custom_service')
             ->end()

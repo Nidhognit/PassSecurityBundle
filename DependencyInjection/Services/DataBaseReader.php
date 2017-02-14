@@ -4,14 +4,13 @@ namespace Nidhognit\PassSecurityBundle\DependencyInjection\Services;
 
 use Doctrine\ORM\EntityManager;
 use Nidhognit\PassSecurityBundle\Entity\InterfacePassSecurityEntity;
-use Nidhognit\PassSecurityBundle\Entity\PassSecurityBase;
 
 class DataBaseReader implements InterfaceReader
 {
     /** @var string */
-    protected $defaultClass = PassSecurityBase::class;
+    protected $class;
     /** @var string */
-    protected $defaultRepository = 'PassSecurityBundle:PassSecurityBase';
+    protected $repository;
     /** @var  EntityManager */
     protected $em;
     /** @var  InterfacePassSecurityEntity */
@@ -20,17 +19,23 @@ class DataBaseReader implements InterfaceReader
     /**
      * DataBaseReader constructor.
      * @param EntityManager $em
-     * @param array $options
+     * @param array         $options
      */
     public function __construct(EntityManager $em, $options = [])
     {
         $this->em = $em;
-        $this->readOptions($options);
+        $this->repository = $options['repository'];
+        $this->class = $options['class'];
     }
 
+    /**
+     * @param      $password
+     * @param null|int $limit
+     * @return null|int
+     */
     public function findByPassword($password, $limit = null)
     {
-        $passSecurity = $this->em->getRepository('PassSecurityBundle:PassSecurityBase')->findOneBy(['password' => $password]);
+        $passSecurity = $this->em->getRepository($this->repository)->findOneBy(['password' => $password]);
         if ($passSecurity) {
             if (!$limit || $limit >= $passSecurity->getNumber()) {
                 return $passSecurity->getNumber();
@@ -40,16 +45,11 @@ class DataBaseReader implements InterfaceReader
         return null;
     }
 
-    private function readOptions($options)
-    {
-
-    }
-
     /**
      * @return string
      */
     public function getDefaultClass()
     {
-        return $this->defaultClass;
+        return $this->class;
     }
 }

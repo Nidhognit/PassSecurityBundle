@@ -29,7 +29,7 @@ class PassSecurityExtension extends Extension
                 $this->prepareFileConfig($config);
                 break;
             case PassSecurity::TYPE_BASE:
-                $this->prepareFileConfig($config);
+                $this->prepareBaseConfig($config);
                 break;
             case PassSecurity::TYPE_CUSTOM:
                 $this->prepareCustomConfig($config);
@@ -64,7 +64,14 @@ class PassSecurityExtension extends Extension
 
     protected function prepareBaseConfig(array $configs)
     {
+        if (isset($configs['file'])) {
+            $file = $configs['file'];
 
+            if ($file === FileReader::FILE_100k || $file === FileReader::FILE_1M) {
+                $file = realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'DataFiles' . DIRECTORY_SEPARATOR . $file . '.txt';
+                $configs['file'] = $file;
+            }
+        }
     }
 
     protected function prepareCustomConfig(array $configs)

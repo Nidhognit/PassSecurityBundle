@@ -38,7 +38,7 @@ Default configuration:
     pass_security:
             type: "file"
 
-Value "type" can be 'file'(default), 'base', 'custom'
+Value "type" can be `file` (default), `base`, `custom`
 
 #Type "file"
 
@@ -64,6 +64,27 @@ Example (select file with 1 000 000 passwords):
             file: Pass1M
             
 #Type "base"
+
+In this case, the passwords will be read from the database. Default configuration looks like this:
+
+    pass_security:
+            type: "base"
+
+You can configure the fololowing variables:
+
+    pass_security:
+            type: "base"
+            class: \AcmeBundle\Entity\MyCustomEntity.php
+            repository: AcmeBundle:MyCustomEntity
+
+Requirements:
+* `MyCustomEntity `  must implement the interface `InterfacePassSecurityEntity`
+
+You can use you own passwords data in database, or you can transfer all the data from file with following console command:
+
+`bin/console passbundle:base`
+
+This command will write all passwords wrom "file" (by default Pass100K) in table, who define in entity "class" (by default 'pass_security_base')
 
 #Type "custom"
 You can also create your own service, for check passwords.
