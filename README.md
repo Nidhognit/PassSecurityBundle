@@ -1,7 +1,11 @@
 PassSecurityBundle
 =========
 
-The PassSecurityBundle help you or your users check your passwords
+The PassSecurityBundle It is designed to help test passwords for entry into the list of unsafe.
+
+Bundle only checks the password in the list, and tells you under what number it was found, the decision about how much it is safe, take you (or you can report it to your users, and to shift the responsibility on them).
+
+I recommend not to use any password from those that have been found in the list.
 
 #How to use
 
