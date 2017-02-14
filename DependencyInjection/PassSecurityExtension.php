@@ -62,7 +62,7 @@ class PassSecurityExtension extends Extension
         }
     }
 
-    protected function prepareBaseConfig(array $configs)
+    protected function prepareBaseConfig(array &$configs)
     {
         if (isset($configs['file'])) {
             $file = $configs['file'];
