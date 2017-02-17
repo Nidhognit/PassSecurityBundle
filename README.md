@@ -13,7 +13,7 @@ If you use composer, open a command console, enter your project directory and ex
 ```console
 $ composer require nidhognit/pass-security-bundle "0.1-beta"
 ```
-Enable the Bundle in AppCernel like this:
+Enable the Bundle in AppKernel like this:
 ```php
 // app/AppKernel.php
 
