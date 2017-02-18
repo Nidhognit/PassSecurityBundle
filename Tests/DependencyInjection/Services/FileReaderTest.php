@@ -11,7 +11,7 @@
  * Keep us God Emperor
  */
 
-namespace Nidhognit\PassSecurityBundle\Tests\DependencyInjection;
+namespace Nidhognit\PassSecurityBundle\Tests\Services\DependencyInjection;
 
 use Nidhognit\PassSecurityBundle\DependencyInjection\Services\FileReader;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;

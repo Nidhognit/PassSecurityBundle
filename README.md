@@ -70,8 +70,8 @@ Where `123456` - your custom password.
 # Documentation
 Default configuration:
 ```yml
-    pass_security:
-            type: "file"
+pass_security:
+    type: "file"
 ```
 Value "type" can be `file` (default), `base`, `custom`.
 
@@ -79,9 +79,9 @@ Value "type" can be `file` (default), `base`, `custom`.
 
 In this case, the password will be read from the file. Default file have 100 000 passwords, and you can use you own file:
 ```yml
-    pass_security:
-            type: "file"
-            file: "path/custom.txt"
+pass_security:
+    type: "file"
+    file: "path/custom.txt"
 ```
 Where:
 * ` castom.txt` - must have ".txt" etentions;
@@ -94,24 +94,24 @@ Default bundle have some pass files:
 
 Example (select file with 1 000 000 passwords):
  ```yml
-    pass_security:
-            type: "file"
-            file: Pass1M
+pass_security:
+    type: "file"
+    file: Pass1M
             
 ```
 ### Type "base"
 
 In this case, the passwords will be read from the database. Default configuration looks like this:
 ```yml
-    pass_security:
-            type: "base"
+pass_security:
+    type: "base"
 ```
 You can configure the fololowing variables:
 ```yml
-    pass_security:
-            type: "base"
-            class: \AcmeBundle\Entity\MyCustomEntity.php
-            repository: AcmeBundle:MyCustomEntity
+pass_security:
+type: "base"
+    class: \AcmeBundle\Entity\MyCustomEntity
+    repository: AcmeBundle:MyCustomEntity
 ```
 Requirements:
 * `MyCustomEntity `  must implement the interface `InterfacePassSecurityEntity`.
@@ -125,9 +125,9 @@ This command will write all passwords wrom "file" (by default Pass100K) in table
 ### Type "custom"
 You can also create your own service, for check passwords.
 ```yml
-    pass_security:
-            type: "custom"
-            custom_service: "acme_bundle.my_service"
+pass_security:
+    type: "custom"
+    custom_service: "acme_bundle.my_service"
 ```
 Requirements:
 * Service must implement the interface `InterfaceReader`;

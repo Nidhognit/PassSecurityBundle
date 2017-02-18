@@ -4,6 +4,7 @@ namespace Nidhognit\PassSecurityBundle\DependencyInjection;
 
 use Nidhognit\PassSecurityBundle\DependencyInjection\Services\FileReader;
 use Nidhognit\PassSecurityBundle\DependencyInjection\Services\PassSecurity;
+use Nidhognit\PassSecurityBundle\Entity\InterfacePassSecurityEntity;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -71,6 +72,12 @@ class PassSecurityExtension extends Extension
                 $file = realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'DataFiles' . DIRECTORY_SEPARATOR . $file . '.txt';
                 $configs['file'] = $file;
             }
+        }
+        $class = $configs['class'];
+
+        $classObj = new $class();
+        if(!$classObj instanceof InterfacePassSecurityEntity){
+            throw new \InvalidArgumentException('Class '. $class .' must be implement "InterfacePassSecurityEntity"');
         }
     }
 
