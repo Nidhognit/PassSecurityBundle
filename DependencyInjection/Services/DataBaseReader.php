@@ -21,7 +21,7 @@ class DataBaseReader implements InterfaceReader
      * @param EntityManager $em
      * @param array         $options
      */
-    public function __construct(EntityManager $em, $options = [])
+    public function __construct(EntityManager $em, $options)
     {
         $this->em = $em;
         $this->repository = $options['repository'];

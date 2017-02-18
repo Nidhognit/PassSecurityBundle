@@ -29,21 +29,56 @@ class FileReaderTest extends KernelTestCase
         $this->container = self::$kernel->getContainer();
     }
 
-    public function testFindPassword()
+    public function testFindPasswordIn100kFile()
     {
-        /** @var FileReader $fileReader */
-        $fileReader = $this->container->get('pass_security.file_reader');
+        $fileReader = new FileReader($this->getFile100kConfig());
 
         $this->assertEquals($fileReader->findByPassword('123456'), 1);
         $this->assertEquals($fileReader->findByPassword('dragon'), 10);
         $this->assertEquals($fileReader->findByPassword('matrix'), 100);
     }
 
-    public function testNotFindPassword()
+    public function testNotFindPasswordIn100kFile()
     {
-        /** @var FileReader $fileReader */
-        $fileReader = $this->container->get('pass_security.file_reader');
+        $fileReader = new FileReader($this->getFile100kConfig());
 
-        $this->assertEquals($fileReader->findByPassword('11111111111111111111111111111111'), null);
+        $this->assertNull($fileReader->findByPassword('11111111111111111111111111111111'));
+        $this->assertNull($fileReader->findByPassword('911'));
+    }
+
+    public function testFindPasswordIn1MFile()
+    {
+        $fileReader = new FileReader($this->getFile1MConfig());
+
+        $this->assertEquals($fileReader->findByPassword('123456'), 1);
+        $this->assertEquals($fileReader->findByPassword('911'), 180099);
+        $this->assertEquals($fileReader->findByPassword('x767mv161rus'), 894668);
+    }
+
+    public function testNotFindPasswordIn1MFile()
+    {
+        $fileReader = new FileReader($this->getFile1MConfig());
+
+        $this->assertNull($fileReader->findByPassword('11111111111111111111111111111111'));
+    }
+
+    protected function getFile100kConfig()
+    {
+        $ds = DIRECTORY_SEPARATOR;
+        $file = realpath(dirname(__FILE__)) . $ds . '..' . $ds. '..' . $ds. '..' . $ds . 'DataFiles' . $ds . 'Pass100k.txt';
+
+        return [
+            'file' => $file,
+        ];
+    }
+
+    protected function getFile1MConfig()
+    {
+        $ds = DIRECTORY_SEPARATOR;
+        $file = realpath(dirname(__FILE__)) . $ds . '..' . $ds. '..' . $ds. '..' . $ds . 'DataFiles' . $ds . 'Pass1M.txt';
+
+        return [
+            'file' => $file,
+        ];
     }
 }

@@ -22,7 +22,7 @@ class PassSecurity
      * @param ContainerInterface $container
      * @param array              $options
      */
-    public function __construct(ContainerInterface $container, $options = [])
+    public function __construct(ContainerInterface $container, $options)
     {
         $this->container = $container;
         $this->setReaderByOptions($options);
