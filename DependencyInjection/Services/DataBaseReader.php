@@ -48,8 +48,16 @@ class DataBaseReader implements InterfaceReader
     /**
      * @return string
      */
-    public function getDefaultClass()
+    public function getClass()
     {
         return $this->class;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRepository()
+    {
+        return $this->repository;
     }
 }

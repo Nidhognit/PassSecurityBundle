@@ -120,7 +120,13 @@ You can use you own passwords data in database, or you can transfer all the data
 ```
 $ bin/console passbundle:base
 ```
-This command will write all passwords wrom "file" (by default Pass100K) in table, who define in entity "class" (by default 'pass_security_base').
+This command will write all passwords from "file" (by default Pass100K) in table, who define in entity "class" (by default 'pass_security_base').
+By default this command will use Entity, and if you use very big file, it can take a lot of time and memory.
+
+If you do not need to create entities, you can use the option "--sql" like this
+```
+$ bin/console passbundle:base --sql
+```
 
 ### Type "custom"
 You can also create your own service, for check passwords.
