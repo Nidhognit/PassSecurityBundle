@@ -14,21 +14,9 @@
 namespace Nidhognit\PassSecurityBundle\Tests\Services\DependencyInjection;
 
 use Nidhognit\PassSecurityBundle\DependencyInjection\Services\FileReader;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class FileReaderTest extends KernelTestCase
+class FileReaderTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var  ContainerInterface */
-    private $container;
-
-    public function setUp()
-    {
-        self::bootKernel();
-
-        $this->container = self::$kernel->getContainer();
-    }
-
     public function testFindPasswordIn100kFile()
     {
         $fileReader = new FileReader($this->getFile100kConfig());
@@ -44,6 +32,7 @@ class FileReaderTest extends KernelTestCase
 
         $this->assertNull($fileReader->findByPassword('11111111111111111111111111111111'));
         $this->assertNull($fileReader->findByPassword('911'));
+        $this->assertNull($fileReader->findByPassword('matrix', 99));
     }
 
     public function testFindPasswordIn1MFile()
@@ -60,12 +49,13 @@ class FileReaderTest extends KernelTestCase
         $fileReader = new FileReader($this->getFile1MConfig());
 
         $this->assertNull($fileReader->findByPassword('11111111111111111111111111111111'));
+        $this->assertNull($fileReader->findByPassword('911', 100));
     }
 
     protected function getFile100kConfig()
     {
         $ds = DIRECTORY_SEPARATOR;
-        $file = realpath(dirname(__FILE__)) . $ds . '..' . $ds. '..' . $ds. '..' . $ds . 'DataFiles' . $ds . 'Pass100k.txt';
+        $file = realpath(dirname(__FILE__)) . $ds . '..' . $ds . '..' . $ds . '..' . $ds . 'DataFiles' . $ds . 'Pass100k.txt';
 
         return [
             'file' => $file,
@@ -75,7 +65,7 @@ class FileReaderTest extends KernelTestCase
     protected function getFile1MConfig()
     {
         $ds = DIRECTORY_SEPARATOR;
-        $file = realpath(dirname(__FILE__)) . $ds . '..' . $ds. '..' . $ds. '..' . $ds . 'DataFiles' . $ds . 'Pass1M.txt';
+        $file = realpath(dirname(__FILE__)) . $ds . '..' . $ds . '..' . $ds . '..' . $ds . 'DataFiles' . $ds . 'Pass1M.txt';
 
         return [
             'file' => $file,
