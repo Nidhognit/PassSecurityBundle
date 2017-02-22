@@ -1,5 +1,6 @@
 PassSecurityBundle
 =========
+[![Build Status](https://travis-ci.org/Nidhognit/PassSecurityBundle.svg?branch=master)](https://travis-ci.org/Nidhognit/PassSecurityBundle)
 
 The PassSecurityBundle It is designed to help test passwords for entry into the list of unsafe.
 
