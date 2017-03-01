@@ -6,7 +6,14 @@ The PassSecurityBundle It is designed to help test passwords for entry into the 
 
 Bundle only checks the password in the list, and tells you under what number it was found, the decision about how much it is safe, take you (or you can report it to your users, and to shift the responsibility on them).
 
-I recommend not to use any password from those that have been found in the list.
+I strongly advise against using any password that can be found on this list.
+
+# Demo example
+
+Website: https://demo-pass-security-bundle.herokuapp.com  
+
+Source code: https://github.com/Nidhognit/demo-pass-security-bundle
+
 # Instalation
 
 If you use composer, open a command console, enter your project directory and execute the following command:
