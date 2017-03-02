@@ -1,5 +1,6 @@
 PassSecurityBundle
 =========
+![pass security](https://cs7050.userapi.com/c636424/v636424115/4d4e9/NPx7eRlEtd0.jpg)
 [![Build Status](https://travis-ci.org/Nidhognit/PassSecurityBundle.svg?branch=master)](https://travis-ci.org/Nidhognit/PassSecurityBundle)
 
 The PassSecurityBundle It is designed to help test passwords for entry into the list of unsafe.
@@ -19,7 +20,7 @@ Source code: https://github.com/Nidhognit/demo-pass-security-bundle
 If you use composer, open a command console, enter your project directory and execute the following command:
 
 ```console
-$ composer require nidhognit/pass-security-bundle "0.1-beta"
+$ composer require nidhognit/pass-security-bundle "0.2"
 ```
 Enable the Bundle in AppKernel like this:
 ```php
