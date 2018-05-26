@@ -2,7 +2,7 @@
   "name": "nidhognit/pass-security-bundle",
   "type": "symfony-bundle",
   "description": "Symfony PassSecurityBundle",
-  "keywords": ["UValidate password"],
+  "keywords": ["Validate password"],
   "homepage": "https://github.com/Nidhognit/PassSecurityBundle",
   "license": "MIT",
   "authors": [
@@ -12,11 +12,11 @@
   ],
   "require": {
     "php": "^5.5.9 || ^7.0",
-    "symfony/framework-bundle": "^2.7 || ^3.0",
-    "symfony/console": "^2.7 || ^3.0",
-    "symfony/dependency-injection": "^2.7 || ^3.0",
-    "symfony/config": "^2.7 || ^3.0",
-    "symfony/yaml": "^2.7 || ^3.0",
+    "symfony/framework-bundle": "^2.7 || ^3.0 || ^4.0",
+    "symfony/console": "^2.7 || ^3.0 || ^4.0",
+    "symfony/dependency-injection": "^2.7 || ^3.0 || ^4.0",
+    "symfony/config": "^2.7 || ^3.0 || ^4.0",
+    "symfony/yaml": "^2.7 || ^3.0 || ^4.0",
     "doctrine/orm": "^2.3",
     "doctrine/doctrine-bundle": "^1.6",
     "incenteev/composer-parameter-handler": "^2.0"
